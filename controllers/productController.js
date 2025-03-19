@@ -1,55 +1,55 @@
-const Produto = require("../models/product.js");
+const Product = require("../models/product.js");
 
 const createProduct = async (name, price) => {
-  const newProduto = new Produto({
+  const newProduct = new Product({
     name,
     price
   });
 
-  await newProduto.save();
+  await newProduct.save();
 
-  return newProduto;
+  return newProduct;
 };
 
 const getAllProduct = async () => {
-  return await Produto.find();
+  return await Product.find();
 };
 
 const getProductById = async (id) => {
   try {
-    const produto = await produto.findById(id);
-    if (!produto) {
+    const product = await product.findById(id);
+    if (!product) {
       throw new Error("Produto não encontrado");
     }
-    return produto;
+    return product;
   } catch (error) {
     throw new Error("Erro ao recuperar produto");
   }
 };
 
 const deleteProduct = async (id) => {
-  const produto = await Produto.findById(id);
+  const product = await Product.findById(id);
 
-  if (!produto) {
+  if (!product) {
     throw new Error("Produto não encontrado");
   }
 
-  await Produto.deleteOne({ _id: id });
+  await Product.deleteOne({ _id: id });
   return true;
 };
 
-const editProduct = async (id, nome, descricao) => {
-  let produto = await Produto.findByIdAndUpdate(
+const editProduct = async (id, name, price) => {
+  let product = await Product.findByIdAndUpdate(
     id,
-    { nome, descricao },
+    { name, price },
     { new: true }
   );
 
-  if (!produto) {
+  if (!product) {
     throw new Error("Produto não encontrado");
   }
 
-  return produto;
+  return product;
 };
 
 module.exports = {
